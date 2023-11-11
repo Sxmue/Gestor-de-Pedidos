@@ -18,6 +18,7 @@ import javafx.event.Event;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import java.util.ResourceBundle;
 
@@ -27,7 +28,7 @@ import java.util.ResourceBundle;
 public class PrincipalView implements Initializable {
 
     /*Variable utilizada para la obtencion de los pedidos de la base de datos*/
-    PedidoDAO pedidoDAO = new PedidoDAOImp(Database.getConnection());
+    PedidoDAO pedidoDAO = new PedidoDAOImp();
 
 
     @javafx.fxml.FXML
@@ -51,7 +52,7 @@ public class PrincipalView implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         // Obtencion de todos los pedidos del usuario
-        ArrayList<Pedido> pedidos = pedidoDAO.loadAllByUser();
+        List<Pedido> pedidos = Session.getUsuarioLogueado().getPedidos();
         ObservableList<Pedido> observablePedidos = FXCollections.observableArrayList(pedidos);
 
 

@@ -24,6 +24,7 @@
 
         <!-- CADA CLASE QUE TENGAMOS HAY QUE AÑADIRLA AQUI -->
         <mapping class="com.cesur.gestorpedidos.models.usuario.Usuario"/>
+        <mapping class="com.cesur.gestorpedidos.models.pedido.Pedido"/>
 
     </session-factory>
 

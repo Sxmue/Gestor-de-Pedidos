@@ -1,6 +1,8 @@
 package com.cesur.gestorpedidos.models.item;
 
+import com.cesur.gestorpedidos.models.pedido.Pedido;
 import com.cesur.gestorpedidos.models.producto.Producto;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,10 +15,20 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Entity
+@Table(name = "item")
 public class Item implements Serializable {
-    private Integer idPedido;
-    private String codigoPedido;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+
+    @ManyToOne
+    @JoinColumn(name="codigoPedido",referencedColumnName = "codigo")
+    private Pedido pedido;
+
     private Integer cantidad;
-    private Integer idProducto;
+
+    @OneToOne
+    @JoinColumn(name="idProducto")
     private Producto producto;
 }
