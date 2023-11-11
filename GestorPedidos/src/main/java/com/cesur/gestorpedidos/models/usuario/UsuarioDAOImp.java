@@ -1,11 +1,10 @@
 package com.cesur.gestorpedidos.models.usuario;
 
 
+import org.hibernate.Session;
+import org.hibernate.query.Query;
 import org.slf4j.LoggerFactory;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import com.cesur.gestorpedidos.database.HibernateUtil;
 
 
 /**
@@ -16,22 +15,6 @@ public class UsuarioDAOImp implements UsuarioDAO {
     /* Log para trazar la clase */
     static final org.slf4j.Logger LOG = LoggerFactory.getLogger(UsuarioDAOImp.class);
 
-    /*Conexion a la base de datos que va a recibir de la clase Database*/
-    private final Connection connection;
-
-
-    //Constantes para las Querys
-    private static final String QUERY_LOAD = "SELECT * FROM usuario Where nombre=? and pass=?";
-
-    /**
-     * Constructor que almacena la conexion en la variable c para trabajar con ella
-     *
-     * @param c Conexion que viene de la clase Database
-     */
-    public UsuarioDAOImp(Connection c) {
-        this.connection = c;
-
-    }
 
     /**
      * Metodo para leer un Usuario de la base de datos
@@ -42,33 +25,35 @@ public class UsuarioDAOImp implements UsuarioDAO {
     @Override
     public Usuario load(String nombre, String pass) {
 
-        Usuario u = new Usuario();
+        Usuario u = null;
 
-        try (var pst = connection.prepareStatement(QUERY_LOAD)) {
+        try(Session s = HibernateUtil.getSessionFactory().openSession()){
 
-            LOG.info(QUERY_LOAD);
+            Query<Usuario> q = s.createQuery("FROM Usuario where nombre=:n and pass=:p",Usuario.class);
 
-            pst.setString(1, nombre);
-            pst.setString(2, pass);
+            q.setParameter("n",nombre);
+            q.setParameter("p",pass);
 
-            ResultSet rs = pst.executeQuery();
+            try {
 
-            while (rs.next()) {
+                u = q.getSingleResult();
 
-                u.setId(rs.getInt("id"));
-                u.setNombre(rs.getString("nombre"));
-                u.setPass(rs.getString("pass"));
-                u.setEmail(rs.getString("email"));
-
-                LOG.info("Usuario creado y devuelto correctamente");
+            }catch(Exception e){
+                System.out.println(e.getMessage());
             }
 
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+
+        }catch (Exception e){
+
+            LOG.error("Algo ha ido mal en la session");
+
+            System.out.println(e.getMessage());
+
         }
 
-        return u;
 
+
+      return u;
     }
 
 

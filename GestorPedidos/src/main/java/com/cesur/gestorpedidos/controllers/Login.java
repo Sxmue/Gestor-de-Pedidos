@@ -1,6 +1,6 @@
 package com.cesur.gestorpedidos.controllers;
 
-import Database.Database;
+import com.cesur.gestorpedidos.database.Database;
 import com.cesur.gestorpedidos.App;
 import com.cesur.gestorpedidos.Session;
 import com.cesur.gestorpedidos.models.usuario.Usuario;
@@ -19,7 +19,7 @@ public class Login implements Initializable {
     static final org.slf4j.Logger LOG = LoggerFactory.getLogger(Login.class);
     ArrayList<Usuario> users;
 
-    private final UsuarioDAOImp usuarioDAO = new UsuarioDAOImp(Database.getConnection());
+    private final UsuarioDAOImp usuarioDAO = new UsuarioDAOImp();
 
     @javafx.fxml.FXML
     private ImageView imgTop;
@@ -53,7 +53,6 @@ public class Login implements Initializable {
         String name = txtUser.getText();
         String pass = txtPass.getText();
         Usuario u = usuarioDAO.load(name, pass);
-        System.out.println(u);
 
         if (!name.isEmpty() && !pass.isEmpty()) {
             LOG.info("Datos validos");

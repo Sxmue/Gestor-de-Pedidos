@@ -1,6 +1,6 @@
 package com.cesur.gestorpedidos.models.item;
 
-import Database.Database;
+import com.cesur.gestorpedidos.database.Database;
 import com.cesur.gestorpedidos.models.pedido.Pedido;
 import com.cesur.gestorpedidos.models.producto.ProductoDAOImp;
 import org.slf4j.LoggerFactory;

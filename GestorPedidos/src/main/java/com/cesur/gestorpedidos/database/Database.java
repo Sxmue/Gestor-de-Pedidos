@@ -1,4 +1,4 @@
-package Database;
+package com.cesur.gestorpedidos.database;
 import com.cesur.gestorpedidos.App;
 import lombok.Getter;
 import org.slf4j.LoggerFactory;
@@ -53,8 +53,10 @@ public class Database {
 
 
         } catch (IOException e) {
+
             LOG.info("Error cargando la configuracion");
             throw new RuntimeException(e);
+
         }
 
 

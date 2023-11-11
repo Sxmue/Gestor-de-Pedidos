@@ -7,14 +7,21 @@ module com.cesur.gestortareas {
     requires org.slf4j;
     requires ch.qos.logback.classic;
     requires ch.qos.logback.core;
-    requires jbcrypt;
     requires itextpdf;
+
+    requires org.hibernate.orm.core;
+    requires jakarta.persistence;
+    requires java.naming;
 
 
 
     opens img;
     exports com.cesur.gestorpedidos;
     opens com.cesur.gestorpedidos.controllers;
+    opens com.cesur.gestorpedidos.models.usuario;
+    opens com.cesur.gestorpedidos.models.item;
+    opens com.cesur.gestorpedidos.models.pedido;
+    opens com.cesur.gestorpedidos.models.producto;
     exports com.cesur.gestorpedidos.traza;
     opens com.cesur.gestorpedidos.traza to javafx.fxml;
     exports com.cesur.gestorpedidos.controllers;

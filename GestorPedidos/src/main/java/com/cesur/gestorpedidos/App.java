@@ -1,6 +1,6 @@
 package com.cesur.gestorpedidos;
 
-import Database.Database;
+import com.cesur.gestorpedidos.database.Database;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
