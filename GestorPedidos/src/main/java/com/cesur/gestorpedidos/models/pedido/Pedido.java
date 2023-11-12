@@ -34,8 +34,8 @@ public class Pedido implements Serializable {
 
     private Integer total;
 
-    @OneToMany(mappedBy = "pedido",fetch = FetchType.EAGER)
-    private List<Item> items;
+    //@OneToMany(mappedBy = "pedido",fetch = FetchType.EAGER)
+    // TODO private List<Item> items;
 
 
 
